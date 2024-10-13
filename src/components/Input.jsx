@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
-import useChatMessages from "../hooks/useChatMessages";
+import {useChat} from "../hooks/useChatMessages";
 
 const MessageInput = () => {
   const [input, setInput] = useState("");
-  const { inputMessage, handleSendMessage,handleInputChange, handleKeyPress } = useChatMessages();
+  const { inputMessage, handleSendMessage,handleInputChange, handleKeyPress } = useChat();
 
   const handleSend = () => {
     handleSendMessage(input);
