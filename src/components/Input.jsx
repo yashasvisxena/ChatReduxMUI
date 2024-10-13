@@ -1,26 +1,41 @@
-import { useState } from 'react';
-import { TextField, Button } from '@mui/material';
-import useChatMessages from '../hooks/useChatMessages';
+import { useState } from "react";
+import { TextField, Button } from "@mui/material";
+import useChatMessages from "../hooks/useChatMessages";
 
 const MessageInput = () => {
-  const [input, setInput] = useState('');
-  const { handleSendMessage } = useChatMessages();
+  const [input, setInput] = useState("");
+  const { inputMessage, handleSendMessage,handleInputChange, handleKeyPress } = useChatMessages();
 
   const handleSend = () => {
     handleSendMessage(input);
-    setInput('');
+    setInput("");
   };
 
   return (
-    <div style={{display:"flex" , position:"fixed" , zIndex:"1001" , bottom:0, left:0, width:"100%" , background:"white", padding:10}}>
+    <div
+      style={{
+        display: "flex",
+        position: "fixed",
+        zIndex: "1001",
+        bottom: 0,
+        left: 0,
+        width: "100%",
+        background: "white",
+        padding: 10,
+      }}
+    >
       <TextField
-        label="Type a message"
-        variant="outlined"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
         fullWidth
+        variant="outlined"
+        value={inputMessage}
+        onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
+        placeholder="Type a message..."
+        sx={{ mr: 1 }}
       />
-      <Button sx={{mx:2}} onClick={handleSend} variant="contained">Send</Button>
+      <Button variant="contained" onClick={handleSend}>
+        Send
+      </Button>
     </div>
   );
 };

@@ -1,69 +1,31 @@
-import { List, ListItem, ListItemText, Box } from "@mui/material";
-import { useRef, useEffect, useState } from "react";
-import useChatMessages from "../hooks/useChatMessages";
-import { mockMessages } from "../store/MockMessages";
-import { useDispatch, useSelector } from "react-redux";
-import { receiveMessage } from "../store/Chat.Slice";
+/* eslint-disable react-hooks/rules-of-hooks */
+import { Box,List, ListItem, Typography } from '@mui/material';
+import useChat, { useMessageStyles, useMessageBubbleStyles } from '../hooks/useChatMessages';
 
-const Chat = () => {
-  const { messages } = useChatMessages();
-  const chatEndRef = useRef(null);
-  const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.chat.currentUser);
-
-  const [messageIndex, setMessageIndex] = useState(0);
-
-
-  useEffect(() => {
-    if (messageIndex < mockMessages.length) {
-      const timer = setTimeout(() => {
-        dispatch(receiveMessage(mockMessages[messageIndex]));
-        setMessageIndex((prevIndex) => prevIndex + 1);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [messageIndex, dispatch]);
-
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+const ChatInterface = () => {
+  const {
+    messages,
+    currentUserId,
+    chatEndRef,
+  } = useChat();
 
   return (
-    <div style={{ display:"flex", flexDirection:"column", flexGrow:"1", overflowY: "auto", padding: "10vh 10px 10px" }}>
-      <List>
-        {messages.map((msg) => {
-          const isCurrentUser = msg.userId === currentUser.id;
-
-          return (
-            <ListItem
-              key={msg.id}
-              sx={{
-                display: "flex",
-                justifyContent: isCurrentUser ? "flex-end" : "flex-start",
-                paddingLeft: 0,
-                paddingRight: 0,
-              }}
-            >
-              <Box
-                sx={{
-                  backgroundColor: isCurrentUser ? "#e1f5fe" : "#f1f1f1",
-                  color: "black",
-                  borderRadius: "15px",
-                  padding: "10px 15px",
-                  maxWidth: "60%",
-                  textAlign: isCurrentUser ? "right" : "left",
-                }}
-              >
-                <ListItemText primary={msg.text} secondary={msg.timestamp} />
-              </Box>
-            </ListItem>
-          );
-        })}
+    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', p:"10vh 10px"}}>
+      <List sx={{ flexGrow: 1, overflow: 'auto', mb: 2 }}>
+        {messages.map((msg) => (
+          <ListItem key={msg.id} sx={useMessageStyles(msg.userId, currentUserId)}>
+            <Typography variant="body1" sx={useMessageBubbleStyles(msg.userId, currentUserId)}>
+              {msg.text}
+            </Typography>
+            <Typography variant="caption" sx={{ mt: 0.5 }}>
+              {new Date(msg.timestamp).toLocaleTimeString()}
+            </Typography>
+          </ListItem>
+        ))}
+        <div ref={chatEndRef} />
       </List>
-      <div style={{paddingBottom:"10vh"}} ref={chatEndRef} />
-    </div>
+    </Box>
   );
 };
 
-export default Chat;
+export default ChatInterface;

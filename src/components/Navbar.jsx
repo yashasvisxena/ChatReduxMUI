@@ -3,8 +3,9 @@ import logo from "/favicon.png";
 
 const Navbar = () => {
   return (
-    <Container maxWidth="xl"
-      style={{width:"100%"}}
+    <Container
+      maxWidth="xl"
+      style={{ width: "100%" }}
       sx={{
         position: "fixed",
         zIndex: 1001,
@@ -20,7 +21,18 @@ const Navbar = () => {
       }}
     >
       <img src={logo} style={{ width: "3em" }} />
-      <Typography variant="h4">
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: {
+            xs: "1.5rem",
+            sm: "2rem",
+            md: "2.5rem",
+            lg: "3rem",
+          },
+          textAlign: "center",
+        }}
+      >
         Chat App | Redux and MUI
       </Typography>
     </Container>

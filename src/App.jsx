@@ -1,17 +1,25 @@
 import { Provider } from "react-redux";
-import Chat from "./components/Chat";
-import MessageInput from "./components/Input";
-import { store } from "./store/store";
-import Navbar from "./components/Navbar";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
+
+import {store} from "./store/store.js";
+import ChatInterface from "./components/Chat";
+import Navbar from "./components/Navbar.jsx";
+import MessageInput from "./components/Input.jsx";
+
+const theme = createTheme({
+  // Customize your theme here
+});
 
 function App() {
   return (
     <Provider store={store}>
-      <>
-        <Navbar />
-        <Chat />
-        <MessageInput />
-      </>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar/>
+        <ChatInterface />
+        <MessageInput/>
+      </ThemeProvider>
     </Provider>
   );
 }
