@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { receiveMessage, sendMessage } from '../store/Chat.Slice';
 
 
-const useChat = () => {
+export const useChat = () => {
   const [inputMessage, setInputMessage] = useState('');
   const messages = useSelector((state) => state.chat.messages);
   const currentUserId = useSelector((state) => state.chat.currentUserId);
@@ -18,7 +18,7 @@ const useChat = () => {
       
       setTimeout(() => {
         dispatch(receiveMessage(`Echo: ${inputMessage}`));
-      }, 1000);
+      }, 2000);
     }
   }, [inputMessage, dispatch]);
 
@@ -62,5 +62,3 @@ export const useMessageBubbleStyles = (userId, currentUserId) => {
     borderRadius: 1,
   };
 };
-
-export default useChat;

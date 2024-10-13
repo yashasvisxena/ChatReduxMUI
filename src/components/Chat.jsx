@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Box,List, ListItem, Typography } from '@mui/material';
-import useChat, { useMessageStyles, useMessageBubbleStyles } from '../hooks/useChatMessages';
+import { useChat, useMessageStyles, useMessageBubbleStyles } from '../hooks/useChatMessages';
 
 const ChatInterface = () => {
   const {
