@@ -1,4 +1,4 @@
-// hooks/useChat.js
+
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { receiveMessage, sendMessage } from '../store/Chat.Slice';
